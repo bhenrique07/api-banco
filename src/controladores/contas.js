@@ -134,6 +134,12 @@ const extrato = (req, res) => {
     if(!contaInformada){
         return res.status(400).json({ "mensagem": "Conta bancária não encontada!" });
     };
+    const senhaInformada = contas.find((conta) => {
+        return senha === conta.usuario.senha;
+    });
+    if(!senhaInformada){
+        return res.status(401).json({ "mensagem": "A senha informada é inválida."})
+    };
 
     const depositosRealizados = depositos.filter((conta) => {
         return conta.numero_conta === numero_conta;
